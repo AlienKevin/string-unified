@@ -1,5 +1,5 @@
 import { length } from "../index";
-test('Counts international strings correctly', () => {
+test('Check if length works for Unicode strings', () => {
     expect(length('Iñtërnâtiônàlizætiøn☃')).toBe(21);
     expect(length('あ')).toBe(1);
     expect(length('谢')).toBe(1);

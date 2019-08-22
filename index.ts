@@ -7,11 +7,15 @@ export function length(str: string): number {
 export function charAt(str: string, index: number): string {
     const arr = new GraphemeSplitter().splitGraphemes(str);
     const length: number = arr.length;
+    return arr[processIndex(index, length)];
+}
+
+function processIndex(index: number, length: number) {
     checkIndexInRange(index, length);
     if (index >= 0) {
-        return arr[index];
+        return index;
     } else {
-        return arr[length + index];
+        return length + index;
     }
 }
 

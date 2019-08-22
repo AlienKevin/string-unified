@@ -1,5 +1,5 @@
 import { charAt } from "../index";
-test('Counts international strings correctly', () => {
+test('Check if charAt() works for Unicode strings', () => {
     expect(charAt('Iñtërnâtiônàlizætiøn☃', 20)).toBe('☃');
     expect(charAt('Iñtërnâtiônàlizætiøn☃', 3)).toBe('ë');
     expect(charAt('Iñtërnâtiônà🏋️‍₦lizætiøn☃', 12)).toBe('🏋️‍');
