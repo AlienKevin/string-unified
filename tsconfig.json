@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "outDir": "./dist/",
+        "allowJs": true,             // allow a partial TypeScript and JavaScript codebase
+        "esModuleInterop": true,
+    },
+    "include": [
+        "./**/*.ts"
+    ]
+}
