@@ -1,0 +1,14 @@
+{
+  "name": "string-unified",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Li",
+  "license": "MIT",
+  "dependencies": {
+    "grapheme-splitter": "^1.0.4"
+  }
+}
