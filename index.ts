@@ -10,8 +10,17 @@ export function charAt(str: string, index: number): string {
     return arr[processIndex(index, length)];
 }
 
-function processIndex(index: number, length: number) {
-    checkIndexInRange(index, length);
+export function substring(str: string, start: number, end?: number): string {
+    const arr = new GraphemeSplitter().splitGraphemes(str);
+    const length: number = arr.length;
+    if (end === undefined) {
+        end = length;
+    }
+    return arr.slice(processIndex(start, length), processIndex(end, length, 0, 1)).join("");
+}
+
+function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
+    checkIndexInRange(index, length, leftOffset, rightOffset);
     if (index >= 0) {
         return index;
     } else {
@@ -19,8 +28,8 @@ function processIndex(index: number, length: number) {
     }
 }
 
-function checkIndexInRange(index: number, length: number) {
-    if (length <= index || index < -length) {
+function checkIndexInRange(index: number, length: number, leftOffset: number = 0, rightOffset: number = 0) {
+    if (length + rightOffset <= index || index < -length + leftOffset) {
         throw new RangeError(`Index of ${index} is out of range from ${-length} to ${length - 1}!`);
     }
 }
