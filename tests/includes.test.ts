@@ -18,6 +18,10 @@ test('Check if includes() works for Unicode strings', () => {
     expect(includes('谢谢你', '谢谢你', -1)).toBe(false);
     expect(includes('谢谢你', '你', -1)).toBe(true);
     expect(includes('谢谢你', '谢谢你', -3)).toBe(true);
+    expect(includes('🏳️‍🌈', '🏳️‍')).toBe(false);
+    expect(includes('Z͑ͫ̓ͪ̂ͫ̽͏̴̙̤̞͉͚̯̞̠͍A̴̵̜̰͔ͫ͗͢L̠ͨͧͩ͘G̴̻͈͍͔̹̑͗̎̅͛́Ǫ̵̹̻̝̳͂̌̌͘', 'Z͑ͫ̓ͪ̂ͫ̽͏̴̙̤̞͉͚̯̞̠͍')).toBe(true);
+    expect(includes('Z͑ͫ̓ͪ̂ͫ̽͏̴̙̤̞͉͚̯̞̠͍A̴̵̜̰͔ͫ͗͢L̠ͨͧͩ͘G̴̻͈͍͔̹̑͗̎̅͛́Ǫ̵̹̻̝̳͂̌̌͘', 'Ǫ̵̹̻̝̳͂̌̌͘')).toBe(true);
+    expect(includes('Z͑ͫ̓ͪ̂ͫ̽͏̴̙̤̞͉͚̯̞̠͍A̴̵̜̰͔ͫ͗͢L̠ͨͧͩ͘G̴̻͈͍͔̹̑͗̎̅͛́Ǫ̵̹̻̝̳͂̌̌͘', "L")).toBe(false);
     expect(() => includes('谢谢你', '谢谢你', 3)).toThrow(RangeError);
     expect(() => includes('谢谢你', '谢谢你', -4)).toThrow(RangeError);
 });
