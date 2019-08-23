@@ -1,5 +1,6 @@
 # string-unified
-All you need to handle Unicode strings properly in JS. 
+All you need to **handle Unicode strings properly** in JS.
+
 This library builds on the power of [grapheme-splitter](https://github.com/orling/grapheme-splitter) to provide all essential functions for accurate Unicode string manipulations.
 
 # Installation
@@ -15,6 +16,16 @@ https://cdn.jsdelivr.net/npm/string-unified@latest
 Unpkg
 ```
 https://unpkg.com/string-unified@latest/dist/index.js
+```
+And import string-unified like this
+```js
+// ES2015+
+import * as unified from "string-unified";
+import { length, charAt, substring } from "string-unified";
+
+// CommonJS
+const unified = require("string-unified")
+const { length, charAt, substring } = require("string-unified");
 ```
 # Usage
 * [length()](##length)
