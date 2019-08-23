@@ -143,7 +143,7 @@ export function includes(str: string, searchStr: string, start?: number) {
     return indexOf(str, searchStr, start) !== -1;
 }
 
-export function split(str: string, separator: RegExp | string, limit?: number) {
+export function split(str: string, separator?: RegExp | string, limit?: number) {
     if (limit !== undefined && limit < 0) {
         throw new RangeError(`Limit must be a nonnegative number!`);
     }
