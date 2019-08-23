@@ -46,14 +46,14 @@ export function startsWith(str: string, searchStr: string, start?: number): bool
 export function endsWith(str: string, searchStr: string, end?: number): boolean {
     const strLength: number = length(str);
     if (end === undefined) { // user doesn't specify starting index
-        end = strLength;
+        end = strLength - 1;
         try {
-            end = processIndex(end, strLength, 0, 1);
+            end = processIndex(end, strLength);
         } catch(error) {
             return false;
         }
     } else {
-        end = processIndex(end, strLength, 0, 1);
+        end = processIndex(end, strLength);
     }
     let result: boolean;
     try {
@@ -61,7 +61,7 @@ export function endsWith(str: string, searchStr: string, end?: number): boolean 
         if (searchStrLength === 0) {
             return true; // empty string is always a substring of any string
         }
-        result = substring(str, end - searchStrLength, end) === searchStr;
+        result = substring(str, end - searchStrLength + 1, end + 1) === searchStr;
     } catch(error) {
         return false;
     }
