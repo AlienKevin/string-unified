@@ -143,6 +143,16 @@ export function includes(str: string, searchStr: string, start?: number) {
     return indexOf(str, searchStr, start) !== -1;
 }
 
+export function split(str: string, separator: RegExp | string, limit?: number) {
+    if (limit !== undefined && limit < 0) {
+        throw new RangeError(`Limit must be a nonnegative number!`);
+    }
+    if (separator === "") {
+        return new GraphemeSplitter().splitGraphemes(str).slice(0, limit);
+    }
+    return str.split(separator, limit);
+}
+
 function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
     checkIndexInRange(index, length, leftOffset, rightOffset);
     if (index >= 0) {
