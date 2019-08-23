@@ -1,11 +1,12 @@
 {
   "name": "string-unified",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.ts",
   "scripts": {
     "simple": "node dist/tests/simpleTest.js",
-    "test": "jest"
+    "test": "jest",
+    "release": "release-it"
   },
   "author": "Kevin Li",
   "license": "MIT",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "jest": "^24.9.0",
+    "release-it": "^12.3.5",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   }
