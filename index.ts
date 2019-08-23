@@ -103,6 +103,10 @@ export function indexOf(str: string, searchStr: string, start?: number) {
     return -1;
 }
 
+export function includes(str: string, searchStr: string, start?: number) {
+    return indexOf(str, searchStr, start) !== -1;
+}
+
 function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
     checkIndexInRange(index, length, leftOffset, rightOffset);
     if (index >= 0) {

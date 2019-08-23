@@ -1,5 +1,5 @@
 import { indexOf } from "../index";
-test('Check if endsWith() works for Unicode strings', () => {
+test('Check if indexOf() works for Unicode strings', () => {
     expect(indexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍🤣😒👌₦lizætiøn☃', '👌₦lizætiøn☃')).toBe(19);
     expect(indexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍️🤣😒👌₦lizætiøn☃', 'æ', -10)).toBe(24);
     expect(indexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍🤣😒👌₦lizætiøn☃', 'Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍', -30)).toBe(0);

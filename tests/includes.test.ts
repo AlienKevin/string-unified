@@ -1,0 +1,23 @@
+import { includes } from "../index";
+test('Check if includes() works for Unicode strings', () => {
+    expect(includes('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍🤣😒👌₦lizætiøn☃', '👌₦lizætiøn☃')).toBe(true);
+    expect(includes('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍️🤣😒👌₦lizætiøn☃', 'æ', -10)).toBe(true);
+    expect(includes('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍🤣😒👌₦lizætiøn☃', 'Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍', -30)).toBe(true);
+    expect(includes('谢谢你', '谢谢你')).toBe(true);
+    expect(includes('谢谢你', '')).toBe(true);
+    expect(includes('谢谢你', '你')).toBe(true);
+    expect(includes('', '😎')).toBe(false);
+    expect(includes('', '')).toBe(true);
+    expect(includes('🎂🎂', '🙌⬅🛡😘🎂🎂🤣😒👌₦🎂🎂🎂🎂')).toBe(false);
+    expect(includes('🙌⬅🛡😘🎂🎂🤣😒👌₦🎂🎂🎂🎂', '🎂🎂')).toBe(true);
+    expect(includes('😍🎁😂🎉🎶🙌🕸👮🧔🍤🥟✈🛰💌💘', '✈🛰💌💘')).toBe(true);
+    expect(includes('😍🎁😂🎉🎶🙌🕸👮🧔🍤🥟✈🛰💌💘', '👮🧔🍤🥟')).toBe(true);
+    expect(includes('谢谢你', '谢谢你', 2)).toBe(false);
+    expect(includes('谢谢你', '谢谢你', 1)).toBe(false);
+    expect(includes('谢谢你', '谢你', 1)).toBe(true);
+    expect(includes('谢谢你', '谢谢你', -1)).toBe(false);
+    expect(includes('谢谢你', '你', -1)).toBe(true);
+    expect(includes('谢谢你', '谢谢你', -3)).toBe(true);
+    expect(() => includes('谢谢你', '谢谢你', 3)).toThrow(RangeError);
+    expect(() => includes('谢谢你', '谢谢你', -4)).toThrow(RangeError);
+});
