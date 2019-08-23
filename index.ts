@@ -32,13 +32,41 @@ export function startsWith(str: string, searchStr: string, start?: number): bool
     }
     let result: boolean;
     try {
-        result = substring(str, start, start + length(searchStr)) === searchStr;
+        const searchStrLength = length(searchStr);
+        if (searchStrLength === 0) {
+            return true; // empty string is always a substring of any string
+        }
+        result = substring(str, start, start + searchStrLength) === searchStr;
     } catch(error) {
         return false;
     }
     return result;
 }
 
+export function endsWith(str: string, searchStr: string, end?: number): boolean {
+    const strLength: number = length(str);
+    if (end === undefined) { // user doesn't specify starting index
+        end = strLength;
+        try {
+            end = processIndex(end, strLength, 0, 1);
+        } catch(error) {
+            return false;
+        }
+    } else {
+        end = processIndex(end, strLength, 0, 1);
+    }
+    let result: boolean;
+    try {
+        const searchStrLength = length(searchStr);
+        if (searchStrLength === 0) {
+            return true; // empty string is always a substring of any string
+        }
+        result = substring(str, end - searchStrLength, end) === searchStr;
+    } catch(error) {
+        return false;
+    }
+    return result;
+}
 function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
     checkIndexInRange(index, length, leftOffset, rightOffset);
     if (index >= 0) {
