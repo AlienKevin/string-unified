@@ -84,7 +84,7 @@ export function indexOf(str: string, searchStr: string, start?: number) {
         i = processIndex(start, arr.length);
     }
     let j: number = 0;
-    while (i < arr.length) {
+    while (i <= arr.length - searchArr.length) {
         if (arr[i] === searchArr[j]) {
             while (j < searchArr.length && i < arr.length && arr[i] === searchArr[j]) {
                 i++;
