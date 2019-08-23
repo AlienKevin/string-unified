@@ -1,8 +1,9 @@
 {
   "name": "string-unified",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "simple": "node dist/tests/simpleTest.js",
     "test": "jest",
