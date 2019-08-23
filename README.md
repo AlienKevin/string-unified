@@ -3,12 +3,29 @@ All you need to handle Unicode strings properly in JS.
 This library builds on the power of [grapheme-splitter](https://github.com/orling/grapheme-splitter) to provide all essential functions for accurate Unicode string manipulations.
 
 # Installation
-## NPM
+## Node.js
 ```
 npm i string-unified
 ```
-
+## Browsers
+jsDelivr
+```
+https://cdn.jsdelivr.net/npm/string-unified@latest
+```
+Unpkg
+```
+https://unpkg.com/string-unified@latest/dist/index.js
+```
 # Usage
+* [length()](##length)
+* [charAt()](##charAt)
+* [substring()](##substring)
+* [indexOf()](##indexOf)
+* [lastIndexOf()](##lastIndexOf)
+* [includes()](##includes)
+* [split()](##split)
+* [startsWith()](##startsWith)
+* [endsWith()](##endsWith)
 ## length
 Get the length of a string.
 ```js
