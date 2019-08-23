@@ -16,7 +16,7 @@ export function substring(str: string, start: number, end?: number): string {
     if (end === undefined) {
         end = length;
     }
-    return arr.slice(processIndex(start, length), processIndex(end, length, 0, 1)).join("");
+    return arr.slice(processIndex(start, length), processIndex(end, length, 0, Infinity)).join("");
 }
 
 export function startsWith(str: string, searchStr: string, start?: number): boolean {

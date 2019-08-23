@@ -12,7 +12,10 @@ test('Check if length works for Unicode strings', () => {
     expect(substring('谢😒🔬🔬🔬🔬', 4, 2)).toBe('');
     expect(substring('谢😒🔬🔬🔬🔬', -6, -5)).toBe('谢');
     expect(substring('谢😒🔬🔬🔬🔬', -6)).toBe('谢😒🔬🔬🔬🔬');
+    expect(substring('谢😒🔬🔬🔬🔬', -6, 10)).toBe('谢😒🔬🔬🔬🔬');
     expect(() => substring('谢😒🔬🔬🔬🔬', 6)).toThrow(RangeError);
     expect(() => substring('谢', 1)).toThrow(RangeError);
     expect(() => substring('谢😒🔬🔬🔬🔬', -7)).toThrow(RangeError);
+    expect(() => substring('谢😒🔬🔬🔬🔬', -7, 10)).toThrow(RangeError);
+    expect(() => substring('谢😒🔬🔬🔬🔬', -1, -7)).toThrow(RangeError);
 });
