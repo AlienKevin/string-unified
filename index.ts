@@ -103,6 +103,42 @@ export function indexOf(str: string, searchStr: string, start?: number) {
     return -1;
 }
 
+export function lastIndexOf(str: string, searchStr: string, start?: number) {
+    const arr = new GraphemeSplitter().splitGraphemes(str);
+    const searchArr = new GraphemeSplitter().splitGraphemes(searchStr);
+    if (searchArr.length > arr.length) {
+        return -1;
+    }
+    if (searchStr === "") {
+        return arr.length;
+    }
+    let i: number;
+    if (start === undefined) {
+        i = arr.length - 1;
+    } else {
+        i = processIndex(start, arr.length);
+    }
+    let j: number = searchArr.length - 1;
+    while (i >= searchArr.length - 1) {
+        if (arr[i] === searchArr[j]) {
+            const startIndex = i;
+            while (j >= 0 && i >= 0 && arr[i] === searchArr[j]) {
+                i--;
+                j--;
+            }
+            if (j === -1) { // found the searchStr
+                return i + 1;
+            } else {
+                // reset back to start index
+                i = startIndex;
+                j = arr.length - 1;
+            }
+        }
+        i--;
+    }
+    return -1;
+}
+
 export function includes(str: string, searchStr: string, start?: number) {
     return indexOf(str, searchStr, start) !== -1;
 }

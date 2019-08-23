@@ -1,0 +1,25 @@
+import { lastIndexOf } from "../index";
+test('Check if lastIndexOf() works for Unicode strings', () => {
+    expect(lastIndexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍🤣😒👌₦lizætiøn☃', '👌₦lizætiøn☃')).toBe(19);
+    expect(lastIndexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍️🤣😒👌₦lizætiøn☃', 'æ', -3)).toBe(24);
+    expect(lastIndexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍️🤣😒👌₦lizætiøn☃', 't', -3)).toBe(25);
+    expect(lastIndexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍️🤣😒👌₦lizætiøn☃', 't')).toBe(25);
+    expect(lastIndexOf('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍🤣😒👌₦lizætiøn☃', 'Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍', 29)).toBe(0);
+    expect(lastIndexOf('谢谢你', '谢谢你')).toBe(0);
+    expect(lastIndexOf('谢谢你', '')).toBe(3);
+    expect(lastIndexOf('谢谢你', '你')).toBe(2);
+    expect(lastIndexOf('', '😎')).toBe(-1);
+    expect(lastIndexOf('', '')).toBe(0);
+    expect(lastIndexOf('🎂🎂', '🙌⬅🛡😘🎂🎂🤣😒👌₦🎂🎂🎂🎂')).toBe(-1);
+    expect(lastIndexOf('🙌⬅🛡😘🎂🎂🤣😒👌₦🎂🎂🎂🎂', '🎂🎂')).toBe(12);
+    expect(lastIndexOf('😍🎁😂🎉🎶🙌🕸👮🧔🍤🥟✈🛰💌💘', '✈🛰💌💘')).toBe(11);
+    expect(lastIndexOf('😍🎁😂🎉🎶🙌🕸👮🧔🍤🥟✈🛰💌💘', '👮🧔🍤🥟')).toBe(7);
+    expect(lastIndexOf('谢谢你', '谢谢你', 2)).toBe(0);
+    expect(lastIndexOf('谢谢你', '谢谢你', 1)).toBe(-1);
+    expect(lastIndexOf('谢谢你', '谢谢', 1)).toBe(0);
+    expect(lastIndexOf('谢谢你', '谢谢你', -1)).toBe(0);
+    expect(lastIndexOf('谢谢你', '你', -1)).toBe(2);
+    expect(lastIndexOf('谢谢你', '谢谢你', -3)).toBe(-1);
+    expect(() => lastIndexOf('谢谢你', '谢谢你', 3)).toThrow(RangeError);
+    expect(() => lastIndexOf('谢谢你', '谢谢你', -4)).toThrow(RangeError);
+});
