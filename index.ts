@@ -19,6 +19,26 @@ export function substring(str: string, start: number, end?: number): string {
     return arr.slice(processIndex(start, length), processIndex(end, length, 0, 1)).join("");
 }
 
+export function startsWith(str: string, searchStr: string, start?: number): boolean {
+    if (start === undefined) { // user doesn't specify starting index
+        start = 0;
+        try {
+            start = processIndex(start, length(str));
+        } catch(error) {
+            return false;
+        }
+    } else {
+        start = processIndex(start, length(str));
+    }
+    let result: boolean;
+    try {
+        result = substring(str, start, start + length(searchStr)) === searchStr;
+    } catch(error) {
+        return false;
+    }
+    return result;
+}
+
 function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
     checkIndexInRange(index, length, leftOffset, rightOffset);
     if (index >= 0) {
@@ -30,6 +50,6 @@ function processIndex(index: number, length: number, leftOffset?: number, rightO
 
 function checkIndexInRange(index: number, length: number, leftOffset: number = 0, rightOffset: number = 0) {
     if (length + rightOffset <= index || index < -length + leftOffset) {
-        throw new RangeError(`Index of ${index} is out of range from ${-length} to ${length - 1}!`);
+        throw new RangeError(`Index of ${index} is out of range from ${-length + leftOffset} to ${length - 1 + rightOffset}!`);
     }
 }
