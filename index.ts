@@ -67,6 +67,42 @@ export function endsWith(str: string, searchStr: string, end?: number): boolean 
     }
     return result;
 }
+
+export function indexOf(str: string, searchStr: string, start?: number) {
+    const arr = new GraphemeSplitter().splitGraphemes(str);
+    const searchArr = new GraphemeSplitter().splitGraphemes(searchStr);
+    if (searchArr.length > arr.length) {
+        return -1;
+    }
+    if (searchStr === "") {
+        return 0;
+    }
+    let i: number;
+    if (start === undefined) {
+        i = 0;
+    } else {
+        i = processIndex(start, arr.length);
+    }
+    let j: number = 0;
+    while (i < arr.length) {
+        if (arr[i] === searchArr[j]) {
+            while (j < searchArr.length && i < arr.length && arr[i] === searchArr[j]) {
+                i++;
+                j++;
+            }
+            if (j === searchArr.length) { // found the searchStr
+                return i - j;
+            } else {
+                // reset back to start index
+                i = i - j;
+                j = 0;
+            }
+        }
+        i++;
+    }
+    return -1;
+}
+
 function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
     checkIndexInRange(index, length, leftOffset, rightOffset);
     if (index >= 0) {
