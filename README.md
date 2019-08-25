@@ -37,6 +37,7 @@ const { length, charAt, substring } = require("string-unified");
 * [split()](##split)
 * [startsWith()](##startsWith)
 * [endsWith()](##endsWith)
+* [match()](##match)
 ## length
 Get the length of a string.
 ```js
@@ -225,4 +226,41 @@ endsWith('🎢🎪🎭🎡🎠', '🎭', 2) // true
 // negative indices also work!
 // same as endsWith('🎢🎪🎭🎡', '🎡')
 endsWith('🎢🎪🎭🎡🎠', '🎡', -2) // true
+```
+## match
+> Note that match() requires ES2015+ because of limited support of unicode regexp
+> in lower versions and limitations of source code transpilers like [regexpu](https://github.com/mathiasbynens/regexpu#known-limitations) used by Babel.
+
+Test if a string matches a regular expression or another string.
+```js
+function match(str, regexp)
+```
+|Param|Type|Default|Description|
+|-----|----|-------|-----------|
+|str  |string|*none*|string to search in|
+|regexp|RegExp or string|*none*|Regular expression or string to search for|
+### Examples
+```js
+// Test if a string matches a RegExp
+// Without global flag
+match('🐵🐶🐺🐱', /🐺/) // ['🐺', index: 2, input: '🐵🐶🐺🐱', groups: undefined]
+
+match('🏳️‍🌈', /🌈/) // null
+
+// Must add 'u' flag otherwise throw "Range out of order in character class"
+match('💩', /[💩-💫]/u) // ['💩', index: 0, input: '💩', groups: undefined]
+
+// all operators like '.' includes unicode characters
+match('foo👋bar', /foo(.)bar/) // ['foo👋bar', '👋', index: 0, input: 'foo👋bar', groups: undefined)
+
+// With global flag
+match('🐵🐺🐶🐺🐱', /🐺/g) // ['🐺', '🐺']
+
+match('🏁🏳️‍🌈🏴🏳️‍🌈⛳🚩🏳️‍🌈🎌', /🏳️‍🌈[⛳🎌]/g) // ['🏳️‍🌈⛳', '🏳️‍🌈🎌']
+
+// Test if a string matches another string
+match('🏁🏳️‍🌈🏴🏳️‍🌈⛳🚩', '🏳️‍🌈') // ['🏳️‍🌈', index: 1, input: '🏁🏳️‍🌈🏴🏳️‍🌈⛳🚩', groups: undefined];
+
+// Special case when regexp is undefined
+match('Nothing will not match anything.', undefined) // null
 ```

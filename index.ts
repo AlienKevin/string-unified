@@ -24,7 +24,7 @@ export function startsWith(str: string, searchStr: string, start?: number): bool
         start = 0;
         try {
             start = processIndex(start, length(str));
-        } catch(error) {
+        } catch (error) {
             return false;
         }
     } else {
@@ -37,7 +37,7 @@ export function startsWith(str: string, searchStr: string, start?: number): bool
             return true; // empty string is always a substring of any string
         }
         result = substring(str, start, start + searchStrLength) === searchStr;
-    } catch(error) {
+    } catch (error) {
         return false;
     }
     return result;
@@ -49,7 +49,7 @@ export function endsWith(str: string, searchStr: string, end?: number): boolean 
         end = strLength - 1;
         try {
             end = processIndex(end, strLength);
-        } catch(error) {
+        } catch (error) {
             return false;
         }
     } else {
@@ -62,7 +62,7 @@ export function endsWith(str: string, searchStr: string, end?: number): boolean 
             return true; // empty string is always a substring of any string
         }
         result = substring(str, end - searchStrLength + 1, end + 1) === searchStr;
-    } catch(error) {
+    } catch (error) {
         return false;
     }
     return result;
@@ -151,6 +151,64 @@ export function split(str: string, separator?: RegExp | string, limit?: number) 
         return new GraphemeSplitter().splitGraphemes(str).slice(0, limit);
     }
     return str.split(separator, limit);
+}
+
+export function match(str: string, regexp: RegExp | string): any[] {
+    if (regexp === undefined) {
+        return null;
+    }
+    if (typeof regexp === "string") {
+        const index = indexOf(str, regexp);
+        if (index !== -1) {
+            let result: any = [regexp];
+            result.index = index;
+            result.input = str;
+            result.groups = undefined;
+            return result;
+        } else {
+            return null;
+        }
+    }
+    // add unicode flag to input regexp
+    const uRegexp = new RegExp(regexp.source, regexp.flags + (regexp.unicode ? "" : "u"));
+    let result = str.match(uRegexp);
+    if (result === null) { // not found
+        return null;
+    }
+    let isAccepted;
+    let index;
+    if (!regexp.global) {
+        let wholeMatch = "";
+        isAccepted = result.every((group) => {
+            if (index === undefined) {
+                const wholeMatchIndex = indexOf(str, group);
+                if (wholeMatchIndex === -1) return false;
+                wholeMatch = group;
+                index = wholeMatchIndex; // get the first group (whole match)'s index
+                return true;
+            } else {
+                // the rest capture goups must be in the whole match
+                return includes(wholeMatch, group);
+            }
+        });
+    } else {
+        let lastGroupIndex = 0;
+        let lastGroupLength = 0;
+        isAccepted = result.every((group) => {
+            lastGroupIndex = indexOf(str, group, lastGroupIndex + lastGroupLength);
+            if (lastGroupIndex === -1) return false;
+            lastGroupLength = length(group);
+            return true;
+        });
+    }
+    if (isAccepted) {
+        if (!regexp.global) {
+            result.index = index;
+        }
+        return result;
+    } else {
+        return null; // some capture group doesn't exist in the string
+    }
 }
 
 function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
