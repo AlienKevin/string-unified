@@ -28,19 +28,19 @@ const unified = require("string-unified")
 const { length, charAt, substring } = require("string-unified");
 ```
 # Usage
-* [length()](##length)
-* [charAt()](##charAt)
-* [substring()](##substring)
-* [indexOf()](##indexOf)
-* [lastIndexOf()](##lastIndexOf)
-* [includes()](##includes)
-* [split()](##split)
-* [startsWith()](##startsWith)
-* [endsWith()](##endsWith)
-* [match()](##match)
+* [length()](#length)
+* [charAt()](#charAt)
+* [substring()](#substring)
+* [indexOf()](#indexOf)
+* [lastIndexOf()](#lastIndexOf)
+* [includes()](#includes)
+* [split()](#split)
+* [startsWith()](#startsWith)
+* [endsWith()](#endsWith)
+* [match()](#match)
 
 > All functions except match() are transpiled to ES5.
-> [See below](##match) for why match() requires ES2015+.
+> [See below](#match) for why match() requires ES2015+.
 
 ## length
 Get the length of a string.
