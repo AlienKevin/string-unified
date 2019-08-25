@@ -38,6 +38,10 @@ const { length, charAt, substring } = require("string-unified");
 * [startsWith()](##startsWith)
 * [endsWith()](##endsWith)
 * [match()](##match)
+
+> All functions except match() are transpiled to ES5.
+> [See below](##match) for why match() requires ES2015+.
+
 ## length
 Get the length of a string.
 ```js
@@ -229,7 +233,7 @@ endsWith('🎢🎪🎭🎡🎠', '🎡', -2) // true
 ```
 ## match
 > Note that match() requires ES2015+ because of limited support of unicode regexp
-> in lower versions and limitations of source code transpilers like [regexpu](https://github.com/mathiasbynens/regexpu#known-limitations) used by Babel.
+> in lower versions and limitations of current source code transpilers like [regexpu](https://github.com/mathiasbynens/regexpu#known-limitations).
 
 Test if a string matches a regular expression or another string.
 ```js
