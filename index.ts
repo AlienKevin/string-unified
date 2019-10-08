@@ -12,12 +12,8 @@ export function charAt(str: string, index: number): string {
 
 export function substring(str: string, start: number, end?: number): string {
     const arr = new GraphemeSplitter().splitGraphemes(str);
-    const length: number = arr.length;
-    if (end === undefined) {
-        end = length;
+    return arr.slice(start, end).join("");
     }
-    return arr.slice(processIndex(start, length), processIndex(end, length, 0, Infinity)).join("");
-}
 
 export function startsWith(str: string, searchStr: string, start?: number): boolean {
     if (start === undefined) { // user doesn't specify starting index
