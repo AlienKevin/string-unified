@@ -15,29 +15,9 @@ export function substring(str: string, start: number, end?: number): string {
     return arr.slice(start, end).join("");
     }
 
-export function startsWith(str: string, searchStr: string, start?: number): boolean {
-    if (start === undefined) { // user doesn't specify starting index
-        start = 0;
-        try {
-            start = processIndex(start, length(str));
-        } catch (error) {
-            return false;
-        }
-    } else {
-        start = processIndex(start, length(str));
+export function startsWith(str: string, searchStr: string, start?: number, end?: number): boolean {
+    return substring(str, start, end).startsWith(searchStr);
     }
-    let result: boolean;
-    try {
-        const searchStrLength = length(searchStr);
-        if (searchStrLength === 0) {
-            return true; // empty string is always a substring of any string
-        }
-        result = substring(str, start, start + searchStrLength) === searchStr;
-    } catch (error) {
-        return false;
-    }
-    return result;
-}
 
 export function endsWith(str: string, searchStr: string, end?: number): boolean {
     const strLength: number = length(str);

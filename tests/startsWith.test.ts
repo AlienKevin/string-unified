@@ -14,6 +14,13 @@ test('Check if startsWith() works for Unicode strings', () => {
     expect(startsWith('谢谢你', '谢谢你', 0)).toBe(true);
     expect(startsWith('谢谢你', '谢谢你', -1)).toBe(false);
     expect(startsWith('谢谢你', '谢谢你', -3)).toBe(true);
-    expect(() => startsWith('谢谢你', '谢谢你', 3)).toThrow(RangeError);
-    expect(() => startsWith('谢谢你', '谢谢你', -4)).toThrow(RangeError);
+    expect(startsWith('谢谢你🌈🏁👔', '🌈🏁👔', 0, 10)).toBe(false);
+    expect(startsWith('谢谢你🌈🏁👔', '谢谢', 0, 10)).toBe(true);
+    expect(startsWith('谢谢你🌈🏁👔', '谢谢', 20, 3)).toBe(false);
+    expect(startsWith('谢谢你🌈🏁👔', '👔', 5, 6)).toBe(true);
+    expect(startsWith('谢谢你', '谢', -3, -2)).toBe(true);
+    expect(startsWith('谢谢你🌈🏁👔', '🌈🏁', -3, -1)).toBe(true);
+    expect(startsWith('谢谢你🌈🏁👔', '🌈🏁👔', -3, -1)).toBe(false);
+    expect(startsWith('谢谢你', '谢谢你', 3)).toBe(false);
+    expect(startsWith('谢谢你', '谢谢你', -4)).toBe(true);
 });
