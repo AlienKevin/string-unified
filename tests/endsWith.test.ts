@@ -1,8 +1,8 @@
 import { endsWith } from "../index";
 test('Check if endsWith() works for Unicode strings', () => {
     expect(endsWith('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍♂️🤣😒👌₦lizætiøn☃', '👌₦lizætiøn☃')).toBe(true);
-    expect(endsWith('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍♂️🤣😒👌₦lizætiøn☃', '🤣😒👌', -11)).toBe(true);
-    expect(endsWith('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍♂️🤣😒👌₦lizætiøn☃', 'Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍♂️🤣', -13)).toBe(true);
+    expect(endsWith('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍♂️🤣😒👌₦lizætiøn☃', '🤣😒👌', 0, -10)).toBe(true);
+    expect(endsWith('Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍♂️🤣😒👌₦lizætiøn☃', 'Iñtërnâtiônà🏋️‍o✌🤷‍🤦‍♂️🤣', 0, -12)).toBe(true);
     expect(endsWith('谢谢你', '谢谢你')).toBe(true);
     expect(endsWith('谢谢你', '')).toBe(true);
     expect(endsWith('谢谢你', '你')).toBe(true);
@@ -10,10 +10,13 @@ test('Check if endsWith() works for Unicode strings', () => {
     expect(endsWith('🎂🎂', '🙌⬅🛡😘🎂🎂🤣😒👌₦🎂🎂🎂🎂')).toBe(false);
     expect(endsWith('😍🎁😂🎉🐱‍👤🙌🕸👮‍♀️🧔🍤🥟✈🛰💌💘', '✈🛰💌💘')).toBe(true);
     expect(endsWith('😍🎁😂🎉🐱‍👤🙌🕸👮‍♀️🧔🍤🥟✈🛰💌💘', '👮‍♀️🧔🍤🥟')).toBe(false);
-    expect(endsWith('谢谢你', '谢谢你', 2)).toBe(true);
-    expect(endsWith('谢谢你', '谢谢你', 1)).toBe(false);
-    expect(endsWith('谢谢你', '谢谢你', -1)).toBe(true);
-    expect(endsWith('谢谢你', '谢谢你', -3)).toBe(false);
-    expect(() => endsWith('谢谢你', '谢谢你', 3)).toThrow(RangeError);
-    expect(() => endsWith('谢谢你', '谢谢你', -4)).toThrow(RangeError);
+    expect(endsWith('谢谢你', '谢谢你', 0, 3)).toBe(true);
+    expect(endsWith('谢谢你', '谢谢你', 0, 2)).toBe(false);
+    expect(endsWith('谢谢你', '谢谢', 0, -1)).toBe(true);
+    expect(endsWith('谢谢你', '谢谢你', -1, 0)).toBe(false);
+    expect(endsWith('谢谢你', '谢谢你', 2, -3)).toBe(false);
+    expect(endsWith('谢谢你', '谢', 1, -1)).toBe(true);
+    expect(endsWith('谢😍🎁😂🎉🐱‍谢你', '😂🎉🐱‍', -20, 6)).toBe(true);
+    expect(endsWith('谢谢你', '谢谢你', 0, 3)).toBe(true);
+    expect(endsWith('谢谢你', '谢谢你', -4)).toBe(true);
 });

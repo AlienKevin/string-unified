@@ -13,70 +13,33 @@ export function charAt(str: string, index: number): string {
 export function substring(str: string, start: number, end?: number): string {
     const arr = new GraphemeSplitter().splitGraphemes(str);
     return arr.slice(start, end).join("");
-    }
+}
 
 export function startsWith(str: string, searchStr: string, start?: number, end?: number): boolean {
     return substring(str, start, end).startsWith(searchStr);
-    }
-
-export function endsWith(str: string, searchStr: string, end?: number): boolean {
-    const strLength: number = length(str);
-    if (end === undefined) { // user doesn't specify starting index
-        end = strLength - 1;
-        try {
-            end = processIndex(end, strLength);
-        } catch (error) {
-            return false;
-        }
-    } else {
-        end = processIndex(end, strLength);
-    }
-    let result: boolean;
-    try {
-        const searchStrLength = length(searchStr);
-        if (searchStrLength === 0) {
-            return true; // empty string is always a substring of any string
-        }
-        result = substring(str, end - searchStrLength + 1, end + 1) === searchStr;
-    } catch (error) {
-        return false;
-    }
-    return result;
 }
 
-export function indexOf(str: string, searchStr: string, start?: number) {
-    const arr = new GraphemeSplitter().splitGraphemes(str);
-    const searchArr = new GraphemeSplitter().splitGraphemes(searchStr);
-    if (searchArr.length > arr.length) {
-        return -1;
-    }
-    if (searchStr === "") {
-        return 0;
-    }
-    let i: number;
-    if (start === undefined) {
-        i = 0;
+export function endsWith(str: string, searchStr: string, start?: number, end?: number): boolean {
+    return substring(str, start, end).endsWith(searchStr);
+}
+
+export function indexOf(str: string, searchStr: string, start?: number, end?: number) {
+    const subIndex = substring(str, start, end).indexOf(searchStr);
+    if (subIndex < 0) {
+        return undefined;
     } else {
-        i = processIndex(start, arr.length);
-    }
-    let j: number = 0;
-    while (i <= arr.length - searchArr.length) {
-        if (arr[i] === searchArr[j]) {
-            while (j < searchArr.length && i < arr.length && arr[i] === searchArr[j]) {
-                i++;
-                j++;
-            }
-            if (j === searchArr.length) { // found the searchStr
-                return i - j;
-            } else {
-                // reset back to start index
-                i = i - j;
-                j = 0;
+        const offset = length(str.slice(0, subIndex));
+        if (start < 0) {
+            start = processIndex(start, length(str));
+            if (start < 0) {
+                start = 0;
             }
         }
-        i++;
+        if (start === undefined) {
+            start = 0;
+        }
+        return start + offset;
     }
-    return -1;
 }
 
 export function lastIndexOf(str: string, searchStr: string, start?: number) {
