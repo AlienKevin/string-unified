@@ -212,7 +212,6 @@ export function match(str: string, regexp: RegExp | string): any[] {
 }
 
 function processIndex(index: number, length: number, leftOffset?: number, rightOffset?: number) {
-    checkIndexInRange(index, length, leftOffset, rightOffset);
     if (index >= 0) {
         return index;
     } else {
@@ -220,8 +219,3 @@ function processIndex(index: number, length: number, leftOffset?: number, rightO
     }
 }
 
-function checkIndexInRange(index: number, length: number, leftOffset: number = 0, rightOffset: number = 0) {
-    if (length + rightOffset <= index || index < -length + leftOffset) {
-        throw new RangeError(`Index of ${index} is out of range from ${-length + leftOffset} to ${length - 1 + rightOffset}!`);
-    }
-}

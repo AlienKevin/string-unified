@@ -10,8 +10,8 @@ test('Check if charAt() works for Unicode strings', () => {
     expect(charAt('谢谢你', -2)).toBe('谢');
     expect(charAt('谢谢你😊', -1)).toBe('😊');
     expect(charAt('谢谢你😊啦', -5)).toBe('谢');
-    expect(() => charAt('谢谢你😊啦', -6)).toThrow(RangeError);
-    expect(() => charAt('谢谢你😊啦', 10)).toThrow(RangeError);
-    expect(() => charAt('Iñtërnâtiônàlizætiøn☃', 21)).toThrow(RangeError);
-    expect(() => charAt('Iñtërnâtiônà🏋️‍₦lizætiøn☃', 23)).toThrow(RangeError);
+    expect(charAt('谢谢你😊啦', -6)).toBe(undefined);
+    expect(charAt('谢谢你😊啦', 10)).toBe(undefined);
+    expect(charAt('Iñtërnâtiônàlizætiøn☃', 21)).toBe(undefined);
+    expect(charAt('Iñtërnâtiônà🏋️‍₦lizætiøn☃', 23)).toBe(undefined);
 });
