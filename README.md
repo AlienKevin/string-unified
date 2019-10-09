@@ -81,6 +81,8 @@ function charAt(str, index)
 ```js
 charAt('helloあ', 5) // 'あ'
 
+charAt('谢谢你😊', 10) // undefined
+
 // negative indices also work!
 // same as charAt('谢谢你😊', 3)
 charAt('谢谢你😊', -1) // '😊'
@@ -88,12 +90,12 @@ charAt('谢谢你😊', -1) // '😊'
 ## substring
 Get a substring of a string.
 ```
-function substring(str, start, end?)
+function substring(str, start?, end?)
 ```
 |Param|Type|Default|Description|
 |-----|----|-------|-----------|
 |str  |string|*none*|string to retrieve substring from|
-|start|number|*none*|start index of substring|
+|start|number|0|start index of substring|
 |end|number|end of string|end index of substring|
 ### Examples
 ```js
@@ -108,55 +110,61 @@ substring('🥪🥗🍤🍜🍚', -3, -2) // '🍤'
 ## indexOf
 Get the index of the first occurence of a search string.
 ```js
-function indexOf(str, searchStr, start?)
+function indexOf(str, searchStr, start?, end?)
 ```
 |Param|Type|Default|Description|
 |-----|----|-------|-----------|
 |str  |string|*none*|string to search in|
 |searchStr|string|*none*|string to search for|
-|start|number|0|start index of the search
+|start|number|0|start index of the search|
+|end|number|end of string|end index of the search|
 ### Examples
 ```js
 // get index of the *first* occurence
 indexOf('🚗🚌🚑🚜🚒🚜', '🚜') // 3
 
-// return -1 if not found
-indexOf('🚗🚌🚑🚜🚒🚜', '🛴🛴🛴') // -1
+// return undefined if not found
+indexOf('🚗🚌🚑🚜🚒🚜', '🛴🛴🛴') // undefined
 ```
 ## lastIndexOf
 Get the index of the last occurence of a search string.
 ```js
-function lastIndexOf(str, searchStr, start?)
+function lastIndexOf(str, searchStr, start?, end?)
 ```
 |Param|Type|Default|Description|
 |-----|----|-------|-----------|
 |str  |string|*none*|string to search in|
 |searchStr|string|*none*|string to search for|
-|start|number|end of string|start index of the search
+|start|number|0|start index of the search|
+|end|number|end of string|end index of the search|
 ### Examples
 ```js
 // get index of the *last* occurence
 lastIndexOf('🚗🚌🚑🚜🚒🚜', '🚜') // 5
 
-// return -1 if not found
-lastIndexOf('🚗🚌🚑🚜🚒🚜', '🛴🛴🛴') // -1
+// return undefined if not found
+lastIndexOf('🚗🚌🚑🚜🚒🚜', '🛴🛴🛴') // undefined
 ```
 ## includes
 Test if a search string appears in a string.
 ```js
-function includes(str, searchStr, start?)
+function includes(str, searchStr, start?, end?)
 ```
 |Param|Type|Default|Description|
 |-----|----|-------|-----------|
 |str  |string|*none*|string to search in|
 |searchStr|string|*none*|string to search for|
-|start|number|end of string|start index of the search
+|start|number|0|start index of the search|
+|end|number|end of string|end index of the search|
 ### Examples
 ```js
 includes('🎁🎄🎃🎉🧧', '🎃') // true
 
 // same as includes('🎃🎉🧧', '🎁')
 includes('🎁🎄🎃🎉🧧', '🎁', 2) // false
+
+// same as includes('🎉', '🎉')
+includes('🎁🎄🎃🎉🧧', '🎉', 3, 4) // true
 
 // negative indices also work!
 // same as includes('🎃🎉🧧', '🎁')
@@ -192,19 +200,23 @@ split('Hello👋 1 word. Sentence #️⃣ 2.', /(\d)/)) // ["Hello👋 ", "1", "
 ## startsWith
 Test is a string starts with a search string.
 ```js
-function startsWith(str, searchStr, start?)
+function startsWith(str, searchStr, start?, end?)
 ```
 |Param|Type|Default|Description|
 |-----|----|-------|-----------|
 |str  |string|*none*|string to search in|
 |searchStr|string|*none*|string to search for|
-|start|number|0|start index of the search
+|start|number|0|start index of the search|
+|end|number|end of string|end index of the search|
 ### Examples
 ```js
 startsWith('🎢🎪🎭🎡🎠', '🎢🎪') // true
 
 // same as startsWith('🎪🎭🎡🎠', '🎢')
 startsWith('🎢🎪🎭🎡🎠', '🎢', 1) // false
+
+// same as startsWith('🎪🎭', '🎪')
+startsWith('🎢🎪🎭🎡🎠', '🎪', 1, 3) // true
 
 // negative indices also work!
 // same as startsWith('🎡🎠', '🎡')
@@ -213,23 +225,24 @@ startsWith('🎢🎪🎭🎡🎠', '🎡', -2) // true
 ## endsWith
 Test is a string ends with a search string.
 ```js
-function endsWith(str, searchStr, start?)
+function endsWith(str, searchStr, start?, end?)
 ```
 |Param|Type|Default|Description|
 |-----|----|-------|-----------|
 |str  |string|*none*|string to search in|
 |searchStr|string|*none*|string to search for|
-|start|number|end of string|start index of the search
+|start|number|0|start index of the search
+|end|number|end of string|end index of the search|
 ### Examples
 ```js
 endsWith('🎢🎪🎭🎡🎠', '🎠') // true
 
-// same as endsWith('🎢🎪🎭', '🎭')
-endsWith('🎢🎪🎭🎡🎠', '🎭', 2) // true
+// same as endsWith('🎭🎡🎠', '🎠')
+endsWith('🎢🎪🎭🎡🎠', '🎠', 2) // true
 
 // negative indices also work!
-// same as endsWith('🎢🎪🎭🎡', '🎡')
-endsWith('🎢🎪🎭🎡🎠', '🎡', -2) // true
+// same as endsWith('🎪🎭', '🎭')
+endsWith('🎢🎪🎭🎡🎠', '🎭', -4, 3) // true
 ```
 ## match
 > Note that match() requires ES2015+ because of limited support of unicode regexp
