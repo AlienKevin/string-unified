@@ -44,15 +44,15 @@ export function indexOf(str: string, searchStr: string, start?: number, end?: nu
                 j++;
             }
             if (j === searchArr.length) { // found the searchStr
-        if (start < 0) {
-            start = processIndex(start, length(str));
-            if (start < 0) {
-                start = 0;
-            }
-        }
-        if (start === undefined) {
-            start = 0;
-        }
+                if (start < 0) {
+                    start = processIndex(start, length(str));
+                    if (start < 0) {
+                        start = 0;
+                    }
+                }
+                if (start === undefined) {
+                    start = 0;
+                }
                 return start + (i - j);
             } else {
                 // reset back to start index
@@ -84,8 +84,8 @@ export function lastIndexOf(str: string, searchStr: string, start?: number, end?
     }
 }
 
-export function includes(str: string, searchStr: string, start?: number) {
-    return indexOf(str, searchStr, start) !== -1;
+export function includes(str: string, searchStr: string, start?: number, end?: number) {
+    return indexOf(str, searchStr, start, end) !== undefined;
 }
 
 export function split(str: string, separator?: RegExp | string, limit?: number) {
