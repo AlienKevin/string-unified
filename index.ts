@@ -24,11 +24,26 @@ export function endsWith(str: string, searchStr: string, start?: number, end?: n
 }
 
 export function indexOf(str: string, searchStr: string, start?: number, end?: number) {
-    const subIndex = substring(str, start, end).indexOf(searchStr);
-    if (subIndex < 0) {
+    const subArr = new GraphemeSplitter().splitGraphemes(str).slice(start, end);
+    const searchArr = new GraphemeSplitter().splitGraphemes(searchStr);
+
+    // edge cases
+    if (searchArr.length > subArr.length) {
         return undefined;
-    } else {
-        const offset = length(str.slice(0, subIndex));
+    }
+    if (searchStr === "") {
+        return 0;
+    }
+    
+    let i = 0;
+    let j = 0;
+    while (i <= subArr.length - searchArr.length) {
+        if (subArr[i] === searchArr[j]) {
+            while (j < searchArr.length && i < subArr.length && subArr[i] === searchArr[j]) {
+                i++;
+                j++;
+            }
+            if (j === searchArr.length) { // found the searchStr
         if (start < 0) {
             start = processIndex(start, length(str));
             if (start < 0) {
@@ -38,8 +53,16 @@ export function indexOf(str: string, searchStr: string, start?: number, end?: nu
         if (start === undefined) {
             start = 0;
         }
-        return start + offset;
+                return start + (i - j);
+            } else {
+                // reset back to start index
+                i = i - j;
+                j = 0;
+            }
+        }
+        i++;
     }
+    return undefined;
 }
 
 export function lastIndexOf(str: string, searchStr: string, start?: number, end?: number) {

@@ -23,4 +23,6 @@ test('Check if indexOf() works for Unicode strings', () => {
     expect(indexOf('谢谢你', '谢谢你', -3, -2)).toBe(undefined);
     expect(indexOf('谢谢你', '谢谢你', 3)).toBe(undefined);
     expect(indexOf('谢谢你', '谢谢你', -4)).toBe(0);
+    expect(indexOf('👩‍👩‍👧‍👦', '👧‍')).toBe(undefined);
+    expect(indexOf('👩‍👩‍👧‍👦', '👩‍👩‍')).toBe(undefined);
 });
