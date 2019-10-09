@@ -141,7 +141,7 @@ export function match(str: string, regexp: RegExp | string): any[] {
     }
     if (typeof regexp === "string") {
         const index = indexOf(str, regexp);
-        if (index !== -1) {
+        if (index !== undefined) {
             let result: any = [regexp];
             result.index = index;
             result.input = str;
@@ -164,7 +164,7 @@ export function match(str: string, regexp: RegExp | string): any[] {
         isAccepted = result.every((group) => {
             if (index === undefined) {
                 const wholeMatchIndex = indexOf(str, group);
-                if (wholeMatchIndex === -1) return false;
+                if (wholeMatchIndex === undefined) return false;
                 wholeMatch = group;
                 index = wholeMatchIndex; // get the first group (whole match)'s index
                 return true;
@@ -178,7 +178,7 @@ export function match(str: string, regexp: RegExp | string): any[] {
         let lastGroupLength = 0;
         isAccepted = result.every((group) => {
             lastGroupIndex = indexOf(str, group, lastGroupIndex + lastGroupLength);
-            if (lastGroupIndex === -1) return false;
+            if (lastGroupIndex === undefined) return false;
             lastGroupLength = length(group);
             return true;
         });
