@@ -4,6 +4,8 @@ test('Check if length works for Unicode strings', () => {
     expect(substring('あ谢谢', 1, 2)).toBe('谢');
     expect(substring('谢😒🔬🔬🔬🔬', 4)).toBe('🔬🔬');
     expect(substring('谢😒🔬🔬🔬🔬', 0, 1)).toBe('谢');
+    expect(substring('谢😒🔬🔬🔬🔬', undefined, 1)).toBe('谢');
+    expect(substring('谢😒🔬🔬🔬🔬', undefined, 4)).toBe('谢😒🔬🔬');
     expect(substring('谢😒🔬🔬🔬🔬', 5, 6)).toBe('🔬');
     expect(substring('谢😒🔬🔬🔬🔬', 5, 5)).toBe('');
     expect(substring('谢😒🔬🔬🔬🔬', 0, 0)).toBe('');

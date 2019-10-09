@@ -10,7 +10,7 @@ export function charAt(str: string, index: number): string {
     return arr[processIndex(index, length)];
 }
 
-export function substring(str: string, start: number, end?: number): string {
+export function substring(str: string, start?: number, end?: number): string {
     const arr = new GraphemeSplitter().splitGraphemes(str);
     return arr.slice(start, end).join("");
 }
