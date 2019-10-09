@@ -42,40 +42,23 @@ export function indexOf(str: string, searchStr: string, start?: number, end?: nu
     }
 }
 
-export function lastIndexOf(str: string, searchStr: string, start?: number) {
-    const arr = new GraphemeSplitter().splitGraphemes(str);
-    const searchArr = new GraphemeSplitter().splitGraphemes(searchStr);
-    if (searchArr.length > arr.length) {
-        return -1;
-    }
-    if (searchStr === "") {
-        return arr.length;
-    }
-    let i: number;
-    if (start === undefined) {
-        i = arr.length - 1;
+export function lastIndexOf(str: string, searchStr: string, start?: number, end?: number) {
+    const subIndex = substring(str, start, end).lastIndexOf(searchStr);
+    if (subIndex < 0) {
+        return undefined;
     } else {
-        i = processIndex(start, arr.length);
-    }
-    let j: number = searchArr.length - 1;
-    while (i >= searchArr.length - 1) {
-        if (arr[i] === searchArr[j]) {
-            const startIndex = i;
-            while (j >= 0 && i >= 0 && arr[i] === searchArr[j]) {
-                i--;
-                j--;
-            }
-            if (j === -1) { // found the searchStr
-                return i + 1;
-            } else {
-                // reset back to start index
-                i = startIndex;
-                j = arr.length - 1;
+        const offset = length(str.slice(0, subIndex));
+        if (start < 0) {
+            start = processIndex(start, length(str));
+            if (start < 0) {
+                start = 0;
             }
         }
-        i--;
+        if (start === undefined) {
+            start = 0;
+        }
+        return start + offset;
     }
-    return -1;
 }
 
 export function includes(str: string, searchStr: string, start?: number) {
