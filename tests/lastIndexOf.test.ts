@@ -20,4 +20,6 @@ test('Check if lastIndexOf() works for Unicode strings', () => {
     expect(lastIndexOf('谢谢你', '谢谢你', 0, 2)).toBe(undefined);
     expect(lastIndexOf('谢谢你谢谢你', '谢谢你', 0, 3)).toBe(0);
     expect(lastIndexOf('谢谢你谢谢你', '谢谢你', -10)).toBe(3);
+    expect(lastIndexOf('👩‍👩‍👧‍👦', '👧‍')).toBe(undefined);
+    expect(lastIndexOf('👩‍👩‍👧‍👦', '👩‍👩‍')).toBe(undefined);
 });

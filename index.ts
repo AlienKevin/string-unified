@@ -66,22 +66,59 @@ export function indexOf(str: string, searchStr: string, start?: number, end?: nu
 }
 
 export function lastIndexOf(str: string, searchStr: string, start?: number, end?: number) {
-    const subIndex = substring(str, start, end).lastIndexOf(searchStr);
-    if (subIndex < 0) {
+    const strLength = length(str);
+    const subArr = new GraphemeSplitter().splitGraphemes(str).slice(start, end);
+    const searchArr = new GraphemeSplitter().splitGraphemes(searchStr);
+
+    // edge cases
+    if (searchArr.length > subArr.length) {
         return undefined;
-    } else {
-        const offset = length(str.slice(0, subIndex));
-        if (start < 0) {
-            start = processIndex(start, length(str));
-            if (start < 0) {
-                start = 0;
+    }
+    if (searchStr === "") {
+        if (end < 0) {
+            end = processIndex(end, strLength);
+            if (end < 0) {
+                end = 0;
             }
         }
-        if (start === undefined) {
-            start = 0;
+        if (end > strLength) {
+            end = strLength;
         }
-        return start + offset;
+        if (end === undefined) {
+            end = strLength;
+        }
+        return end;
     }
+
+    let i = subArr.length - 1;
+    let j = searchArr.length - 1;
+    while (i >= searchArr.length - 1) {
+        if (subArr[i] === searchArr[j]) {
+            const startIndex = i;
+            while (j >= 0 && i >= 0 && subArr[i] === searchArr[j]) {
+                i--;
+                j--;
+            }
+            if (j === -1) { // found the searchStr
+                if (start < 0) {
+                    start = processIndex(start, length(str));
+                    if (start < 0) {
+                        start = 0;
+                    }
+                }
+                if (start === undefined) {
+                    start = 0;
+                }
+                return start + (i + 1);
+            } else {
+                // reset back to start index
+                i = startIndex;
+                j = subArr.length - 1;
+            }
+        }
+        i--;
+    }
+    return undefined;
 }
 
 export function includes(str: string, searchStr: string, start?: number, end?: number) {
